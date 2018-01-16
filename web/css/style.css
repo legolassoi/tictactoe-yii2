@@ -1,0 +1,74 @@
+body {
+	background-color: #eee;
+}
+.enter_form {
+	margin: 100px auto;
+	max-width: 300px;
+	position: relative;
+}
+.enter_form input[type="text"] {
+	margin: 15px 0;
+}
+.drawing_area {
+	margin: 0 auto;
+	max-width: 400px;
+}
+.top-header {
+	height: 100px;
+	margin-top: 50px;
+	font-size: 16px;
+}
+.drawing-cell {
+	font-size: 32px;
+	text-align: center;
+	margin-bottom: 0;
+	min-height: 90px;
+	cursor: pointer;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.game-actions {
+	display: none;
+	margin-top: 10px;
+}
+#current_game_results {
+	font-size: 18px;
+	line-height: 36px;
+}
+.pointer {
+	cursor: pointer;
+}
+.pointer:hover {
+	color: gray;
+}
+#results tr:hover {
+	cursor: pointer;
+	color: gray;
+}
+#home_icon {
+	position: fixed;
+	top: 1%;
+	left: 1%;
+	z-index: 100;
+}
+#home_icon img{
+	width: 30px;
+}
+.row div {
+	overflow-wrap: break-word;
+}
+.row div.played_time {
+	overflow-wrap: normal;
+}
+.flip {
+	position: absolute;
+	right: -50px;
+	top: 70px;
+}
+.flip img{
+	width: 40px;
+}
