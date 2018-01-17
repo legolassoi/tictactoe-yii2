@@ -1,29 +1,44 @@
 <?php
 
-use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 ?>
 <div class="container">
     <?php
     $form = ActiveForm::begin([
         'enableClientValidation' => false,
-        'action' => ['/site/play'],
+        'action' => ['/site/index'],
         'options' => ['class' => 'enter_form'],
     ]);
     ?>
     <h2>Enter your names</h2>
     <div class="flip"><a href="javascript:void(0)" onclick="login.switchNames()"><img src="/images/flip.png" /></a></div>
-    <input title="Only alphanumeric symbols and spaces. Maximum 25 characters" class="form-control" pattern="[A-Za-z0-9 ]{1,25}" name="player1" id="player1" placeholder="Player 1" type="text" required>
-    <input title="Only alphanumeric symbols and spaces. Maximum 25 characters" class="form-control" pattern="[A-Za-z0-9 ]{1,25}" name="player2" id="player2" placeholder="Player 2" type="text" required>
+    <?= 
+        $form->field($model, 'player1')->textInput([
+            'autofocus' => true,
+            'class' => 'form-control',
+            'title' => 'Only alphanumeric symbols and spaces. Maximum 25 characters',
+            'id' => 'player1',
+            'placeholder' => 'Player 1',
+            'pattern' => '[A-Za-z0-9 ]{1,25}',
+        ])->label(false);
+    ?>
+    <?= 
+        $form->field($model, 'player2')->textInput([
+            'autofocus' => true,
+            'class' => 'form-control',
+            'title' => 'Only alphanumeric symbols and spaces. Maximum 25 characters',
+            'id' => 'player2',
+            'placeholder' => 'Player 2',
+            'pattern' => '[A-Za-z0-9 ]{1,25}',
+        ])->label(false);
+    ?>
     <div class="checkbox">
         <label>
             <input id="bot" value="bot" type="checkbox"> AI opponent
         </label>
     </div>
     <div class="checkbox">
-        <label>
-            <input id="hard_mode" name="hard_mode" value="1" type="checkbox"> Hard Mode
-        </label>
+            <?= $form->field($model, 'hard_mode')->checkbox()->label(false) ?>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Play</button>
 <?php ActiveForm::end(); ?>
@@ -32,5 +47,6 @@ use yii\widgets\ActiveForm;
 <script>
     $(document).ready(function () {
         login.initBotListener();
+        login.lockBot();
     });
 </script>

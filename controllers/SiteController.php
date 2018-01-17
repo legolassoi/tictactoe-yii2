@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use \app\models\GameResults;
 use yii\data\ActiveDataProvider;
+use app\models\NamesForm;
 
 /**
  * @author Oleg Stanislavchuk <legolassoi@gmail.com
@@ -32,18 +33,16 @@ class SiteController extends Controller {
      * @return string
      */
     public function actionIndex() {
-        return $this->render('index');
+        $model = new NamesForm();
+        if ($model->load(Yii::$app->request->post()) && $model->remember()) {
+            return $this->redirect(['/site/play']);
+        }
+            
+        return $this->render('index', ['model' => $model]);
     }
 
     public function actionPlay() {
         $session = Yii::$app->session;
-        if (Yii::$app->request->post('player1') && Yii::$app->request->post('player2')) {
-            $session->set('player1', preg_replace("/[^0-9a-zA-Z ]/", "", Yii::$app->request->post('player1')));
-            $session->set('player2', preg_replace("/[^0-9a-zA-Z ]/", "", Yii::$app->request->post('player2')));
-            $session->set('hard_mode', Yii::$app->request->post('hard_mode', false));
-            $_POST = [];
-            return $this->redirect(['/site/play']);
-        }
         $this->data['player1'] = $session->get('player1');
         $this->data['player2'] = $session->get('player2');
         $this->data['hard_mode'] = $session->get('hard_mode');
