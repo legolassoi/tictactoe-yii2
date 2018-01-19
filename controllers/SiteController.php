@@ -9,7 +9,7 @@ use yii\data\ActiveDataProvider;
 use app\models\NamesForm;
 
 /**
- * @author Oleg Stanislavchuk <legolassoi@gmail.com
+ * @author Oleg Stanislavchuk <legolassoi@gmail.com>
  * 
  */
 class SiteController extends Controller {
@@ -37,10 +37,15 @@ class SiteController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->remember()) {
             return $this->redirect(['/site/play']);
         }
-            
+
         return $this->render('index', ['model' => $model]);
     }
 
+    /**
+     * Displays game page.
+     *
+     * @return string
+     */
     public function actionPlay() {
         $session = Yii::$app->session;
         $this->data['player1'] = $session->get('player1');
@@ -53,6 +58,12 @@ class SiteController extends Controller {
         return $this->render('play', $this->data);
     }
 
+    /**
+     * Stores result into DB
+     * returns latest results html to re-render top-right corner
+     *
+     * @return string
+     */
     public function actionStore() {
         $model = new GameResults();
         $model->load(Yii::$app->request->post());
@@ -64,6 +75,12 @@ class SiteController extends Controller {
         echo $return;
     }
 
+    /**
+     * Displays specific view of played game (from history)
+     * or throws 404 error
+     *
+     * @return string
+     */
     public function actionView($id = 0) {
         $this->data['result'] = GameResults::findOne($id);
         $this->data['latest_results'] = GameResults::getLastEntries();
@@ -73,6 +90,11 @@ class SiteController extends Controller {
         return $this->render('view', $this->data);
     }
 
+    /**
+     * Displays grid with all played games results from db.
+     *
+     * @return string
+     */
     public function actionResults() {
         $dataProvider = new ActiveDataProvider([
             'query' => GameResults::find(),

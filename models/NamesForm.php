@@ -29,7 +29,7 @@ class NamesForm extends Model {
     /**
      * Stores data into session
      *
-     * @return boolean whether the data got stored successfuly
+     * @return boolean
      */
     public function remember() {
         $session = Yii::$app->session;

@@ -11,6 +11,7 @@ namespace app\models;
  * @property int $winner
  * @property string $final_position
  * @property string $played
+ * @author Oleg Stanislavchuk <legolassoi@gmail.com>
  */
 class GameResults extends \yii\db\ActiveRecord {
     
@@ -45,7 +46,12 @@ class GameResults extends \yii\db\ActiveRecord {
             'played' => 'Date Played',
         ];
     }
-
+    
+    /**
+     * improved beforeSave to store played datetime.
+     *
+     * @return boolean
+     */
     public function beforeSave($insert) {
         if (parent::beforeSave($insert)) {
             $this->played = date("Y-m-d H:i:s");
@@ -53,7 +59,12 @@ class GameResults extends \yii\db\ActiveRecord {
         }
         return false;
     }
-
+    
+     /**
+     * gets last 5 played games ordered by played datetime
+     *
+     * @return set of model objects
+     */
     public static function getLastEntries() {
         $entries = GameResults::find()->limit(5)->orderBy('played DESC')->asArray()->all();
         return $entries;
